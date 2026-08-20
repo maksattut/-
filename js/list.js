@@ -1,7 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const role = urlParams.get("role");
 
-fetch("https://script.google.com/macros/s/YOUR_URL/exec?type=list")
+fetch("https://script.google.com/macros/s/AKfycbyiz8iCbTtnRH5ZILNouP-0qslUH_XLO5T5DoDRcVOchuB2YkJpwx2xzS8TCoT3YWu1CQ/exec?type=list")
 .then(res => res.json())
 .then(data => {
 
