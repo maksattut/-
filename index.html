@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Создание заявки</title>
+</head>
+<body>
+
+<h2>Создание заявки</h2>
+
+<input id="department" placeholder="Цех"><br><br>
+
+<table id="items" border="1">
+<tr>
+  <th>Название</th>
+  <th>Кол-во</th>
+  <th>Ед.</th>
+  <th></th>
+</tr>
+</table>
+
+<button onclick="addRow()">Добавить</button>
+
+<br><br>
+
+<textarea id="comment" placeholder="Комментарий"></textarea>
+
+<br><br>
+
+<button onclick="submitForm()">Отправить</button>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
