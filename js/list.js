@@ -1,71 +1,42 @@
 const urlParams = new URLSearchParams(window.location.search);
 const role = urlParams.get("role");
 
-const API_URL = "https://script.google.com/macros/s/AKfycbyiz8iCbTtnRH5ZILNouP-0qslUH_XLO5T5DoDRcVOchuB2YkJpwx2xzS8TCoT3YWu1CQ/exec?type=list";
+fetch("https://script.google.com/macros/s/AKfycbyiz8iCbTtnRH5ZILNouP-0qslUH_XLO5T5DoDRcVOchuB2YkJpwx2xzS8TCoT3YWu1CQ/exec?type=list")
+.then(res => res.json())
+.then(data => {
 
-fetch(API_URL)
-  .then(res => res.json())
-  .then(data => {
+  const table = document.getElementById("table");
 
-    const container = document.getElementById("list");
+  function getStatusColor(status) {
+    if (status === "pending") return "orange";
+    if (status === "approved_by_logist") return "blue";
+    if (status === "approved") return "green";
+    return "gray";
+  }
 
-    if (!data || data.length === 0) {
-      container.innerHTML = "Нет заявок";
-      return;
-    }
+  data.forEach(doc => {
 
-    function getStatusClass(status) {
-      if (status === "pending") return "pending";
-      if (status === "approved_by_logist") return "logist";
-      if (status === "approved") return "approved";
-      return "";
-    }
+    // 🔐 фильтр ролей
+    if (role === "logist" && doc.status !== "pending") return;
+    if (role === "director" && doc.status !== "approved_by_logist") return;
 
-    data.forEach(doc => {
+    const row = table.insertRow();
 
-      // фильтр ролей
-      if (role === "logist" && doc.status !== "pending") return;
-      if (role === "director" && doc.status !== "approved_by_logist") return;
-
-      const card = document.createElement("div");
-      card.className = "card";
-
-      card.innerHTML = `
-        <div class="row">
-          <div class="label">ID</div>
-          <div class="value">${doc.id}</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Дата</div>
-          <div class="value">${new Date(doc.date).toLocaleString()}</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Цех</div>
-          <div class="value">${doc.department}</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Статус</div>
-          <div class="status ${getStatusClass(doc.status)}">
-            ${doc.status}
-          </div>
-        </div>
-
-        <button class="btn" onclick="openDoc('${doc.id}')">
-          Открыть
-        </button>
-      `;
-
-      container.appendChild(card);
-    });
-
-  })
-  .catch(() => {
-    document.getElementById("list").innerHTML = "Ошибка загрузки";
+    row.innerHTML = `
+      <td>${doc.id}</td>
+      <td>${new Date(doc.date).toLocaleString()}</td>
+      <td>${doc.department}</td>
+      <td style="color:${getStatusColor(doc.status)};font-weight:bold">
+        ${doc.status}
+      </td>
+      <td>
+        <a href="doc.html?id=${doc.id}&role=${role}">Открыть</a>
+      </td>
+    `;
   });
 
-function openDoc(id) {
-  window.location.href = `doc.html?id=${id}&role=${role}`;
-}
+})
+.catch(err => {
+  console.error(err);
+  document.body.innerHTML = "❌ Ошибка загрузки данных";
+});
