@@ -151,10 +151,28 @@ function setLang(l) {
   }
 }
 </script>
-  <script>
-function goList() {
+<script>
+const PASSWORDS = {
+  logist: "1234",
+  director: "9999"
+};
+
+function login() {
   const role = document.getElementById("role").value;
-  location.href = "list.html?role=" + role;
+  const pass = document.getElementById("password").value;
+
+  // 🚫 запрет инициатору
+  if (role === "init") {
+    document.getElementById("error").innerText = "У инициатора нет доступа";
+    return;
+  }
+
+  // 🔐 проверка пароля
+  if (PASSWORDS[role] === pass) {
+    location.href = "list.html?role=" + role;
+  } else {
+    document.getElementById("error").innerText = "Неверный пароль";
+  }
 }
 </script>
 
