@@ -1,35 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Создание заявки</title>
+  <title>DocFlow</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f7fb;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    select, button {
+      padding: 10px;
+      margin: 5px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      background: #2d6cdf;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #1b4fbf;
+    }
+
+    table input {
+      width: 100%;
+    }
+  </style>
 </head>
+
 <body>
 
-<h2>Создание заявки</h2>
+<div class="container">
 
-<input id="department" placeholder="Цех"><br><br>
+  <h1 id="title">Система заявок</h1>
 
-<table id="items" border="1">
-<tr>
-  <th>Название</th>
-  <th>Кол-во</th>
-  <th>Ед.</th>
-  <th></th>
-</tr>
-</table>
+  <div class="top">
+    <div>
+      <select id="role">
+        <option value="init">Инициатор</option>
+        <option value="logist">Логист</option>
+        <option value="director">Директор</option>
+      </select>
+    </div>
 
-<button onclick="addRow()">Добавить</button>
+    <div>
+      <button onclick="setLang('ru')">RU</button>
+      <button onclick="setLang('kz')">KZ</button>
+    </div>
+  </div>
 
-<br><br>
+  <div class="card">
+    <button class="btn" onclick="location.href='list.html'">📋 Перейти к заявкам</button>
+  </div>
 
-<textarea id="comment" placeholder="Комментарий"></textarea>
+  <div class="card">
 
-<br><br>
+    <h3 id="createTitle">Создать заявку</h3>
 
-<button onclick="submitForm()">Отправить</button>
+    <input id="department" placeholder="Цех"><br><br>
+
+    <table id="items" border="1">
+      <tr>
+        <th>Название</th>
+        <th>Кол-во</th>
+        <th>Ед.</th>
+        <th></th>
+      </tr>
+    </table>
+
+    <button class="btn" onclick="addRow()">Добавить</button>
+
+    <br><br>
+
+    <textarea id="comment" placeholder="Комментарий"></textarea>
+
+    <br><br>
+
+    <button class="btn" onclick="submitForm()">Отправить</button>
+
+  </div>
+
+</div>
 
 <script src="js/app.js"></script>
+
+<script>
+let lang = "ru";
+
+function setLang(l) {
+  lang = l;
+
+  if (l === "kz") {
+    document.getElementById("title").innerText = "Өтінімдер жүйесі";
+    document.getElementById("createTitle").innerText = "Өтінім жасау";
+    document.getElementById("department").placeholder = "Цех";
+    document.getElementById("comment").placeholder = "Түсініктеме";
+  } else {
+    document.getElementById("title").innerText = "Система заявок";
+    document.getElementById("createTitle").innerText = "Создать заявку";
+    document.getElementById("department").placeholder = "Цех";
+    document.getElementById("comment").placeholder = "Комментарий";
+  }
+}
+</script>
 
 </body>
 </html>
