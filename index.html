@@ -1,156 +1,126 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>DocFlow</title>
+<meta charset="UTF-8">
+<title>DocFlow</title>
 
-  <style>
-    body {
-      font-family: Arial;
-      background: #f5f7fb;
-      margin: 0;
-    }
+<style>
+body {
+  font-family: Arial;
+  background: #f5f7fb;
+  margin: 0;
+}
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-    }
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
 
-    h1 {
-      text-align: center;
-    }
+h1 {
+  text-align: center;
+}
 
-    .top {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
+.top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
 
-    select, button {
-      padding: 10px;
-      margin: 5px;
-    }
+select, input, button, textarea {
+  padding: 10px;
+  margin: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
 
-    .btn {
-      padding: 12px 20px;
-      border: none;
-      background: #2d6cdf;
-      color: white;
-      border-radius: 6px;
-      cursor: pointer;
-    }
+.btn {
+  padding: 12px;
+  border: none;
+  background: #2d6cdf;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
-    .btn:hover {
-      background: #1b4fbf;
-    }
+.btn:hover {
+  background: #1b4fbf;
+}
 
-    table input {
-      width: 100%;
-    }
-  </style>
+.lang-btn {
+  width: auto;
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-  <h1 id="title">Система заявок</h1>
+<h1 id="title">Система заявок</h1>
 
-  <div class="top">
-    <div>
-      <select id="role">
-        <option value="init">Инициатор</option>
-        <option value="logist">Логист</option>
-        <option value="director">Директор</option>
-      </select>
-    </div>
-
-    <div>
-      <button onclick="setLang('ru')">RU</button>
-      <button onclick="setLang('kz')">KZ</button>
-    </div>
+<div class="top">
+  <div>
+    <button class="lang-btn" onclick="setLang('ru')">RU</button>
+    <button class="lang-btn" onclick="setLang('kz')">KZ</button>
   </div>
+</div>
 
-  <div class="card">
+<!-- ВХОД -->
+<div class="card">
 
-  <h3>Вход к заявкам</h3>
+<h3 id="loginTitle">Вход к заявкам</h3>
 
-  <select id="role">
-    <option value="init">Инициатор</option>
-    <option value="logist">Логист</option>
-    <option value="director">Директор</option>
-  </select>
+<select id="loginRole">
+  <option value="init">Инициатор</option>
+  <option value="logist">Логист</option>
+  <option value="director">Директор</option>
+</select>
 
-  <br><br>
+<input type="password" id="password" placeholder="Пароль">
 
-  <input type="password" id="password" placeholder="Пароль">
+<button class="btn" onclick="login()">📋 Перейти к заявкам</button>
 
-  <br><br>
-
-  <button class="btn" onclick="login()">📋 Перейти к заявкам</button>
-
-  <p id="error" style="color:red;"></p>
+<p id="error" style="color:red;"></p>
 
 </div>
-  <div class="card">
 
-    <h3 id="createTitle">Создать заявку</h3>
+<!-- СОЗДАНИЕ ЗАЯВКИ -->
+<div class="card">
 
-    <input id="department" placeholder="Цех"><br><br>
+<h3 id="createTitle">Создать заявку</h3>
 
-    <table id="items" border="1">
-      <tr>
-        <th>Название</th>
-        <th>Кол-во</th>
-        <th>Ед.</th>
-        <th></th>
-      </tr>
-    </table>
+<input id="department" placeholder="Цех">
 
-    <button class="btn" onclick="addRow()">Добавить</button>
+<table id="items" border="1" style="width:100%">
+<tr>
+  <th>Название</th>
+  <th>Кол-во</th>
+  <th>Ед.</th>
+  <th></th>
+</tr>
+</table>
 
-    <br><br>
+<button class="btn" onclick="addRow()">Добавить</button>
 
-    <textarea id="comment" placeholder="Комментарий"></textarea>
+<textarea id="comment" placeholder="Комментарий"></textarea>
 
-    <br><br>
+<button class="btn" onclick="submitForm()">Отправить</button>
 
-    <button class="btn" onclick="submitForm()">Отправить</button>
-
-  </div>
+</div>
 
 </div>
 
 <script src="js/app.js"></script>
 
-<script>
-let lang = "ru";
-
-function setLang(l) {
-  lang = l;
-
-  if (l === "kz") {
-    document.getElementById("title").innerText = "Өтінімдер жүйесі";
-    document.getElementById("createTitle").innerText = "Өтінім жасау";
-    document.getElementById("department").placeholder = "Цех";
-    document.getElementById("comment").placeholder = "Түсініктеме";
-  } else {
-    document.getElementById("title").innerText = "Система заявок";
-    document.getElementById("createTitle").innerText = "Создать заявку";
-    document.getElementById("department").placeholder = "Цех";
-    document.getElementById("comment").placeholder = "Комментарий";
-  }
-}
-</script>
 <script>
 const PASSWORDS = {
   logist: "1234",
@@ -158,20 +128,38 @@ const PASSWORDS = {
 };
 
 function login() {
-  const role = document.getElementById("role").value;
+  const role = document.getElementById("loginRole").value;
   const pass = document.getElementById("password").value;
 
-  // 🚫 запрет инициатору
   if (role === "init") {
     document.getElementById("error").innerText = "У инициатора нет доступа";
     return;
   }
 
-  // 🔐 проверка пароля
   if (PASSWORDS[role] === pass) {
     location.href = "list.html?role=" + role;
   } else {
     document.getElementById("error").innerText = "Неверный пароль";
+  }
+}
+
+let lang = "ru";
+
+function setLang(l) {
+  lang = l;
+
+  if (l === "kz") {
+    document.getElementById("title").innerText = "Өтінімдер жүйесі";
+    document.getElementById("loginTitle").innerText = "Жүйеге кіру";
+    document.getElementById("createTitle").innerText = "Өтінім жасау";
+    document.getElementById("department").placeholder = "Цех";
+    document.getElementById("comment").placeholder = "Түсініктеме";
+  } else {
+    document.getElementById("title").innerText = "Система заявок";
+    document.getElementById("loginTitle").innerText = "Вход к заявкам";
+    document.getElementById("createTitle").innerText = "Создать заявку";
+    document.getElementById("department").placeholder = "Цех";
+    document.getElementById("comment").placeholder = "Комментарий";
   }
 }
 </script>
