@@ -1,8 +1,26 @@
 <!DOCTYPE html>
 <html lang="ru">
+<!DOCTYPE html>
+<html lang="ru">
+
 <head>
 <meta charset="UTF-8">
 <title>Заявки</title>
+
+<script>
+const PASSWORDS = {
+  logist: "1234",
+  director: "9999"
+};
+
+const params = new URLSearchParams(window.location.search);
+const role = params.get("role");
+
+if (!role || !PASSWORDS[role]) {
+  alert("Нет доступа");
+  window.location.href = "index.html";
+}
+</script>
 
 <style>
 body {
@@ -27,31 +45,7 @@ th, td {
   border: 1px solid #ddd;
   text-align: center;
 }
-
-h2 {
-  text-align: center;
-}
-
-a {
-  color: #2d6cdf;
-}
 </style>
-
-<script>
-const PASSWORDS = {
-  logist: "1234",
-  director: "9999"
-};
-
-// проверка доступа
-const params = new URLSearchParams(window.location.search);
-const role = params.get("role");
-
-if (!role || !PASSWORDS[role]) {
-  alert("Нет доступа");
-  window.location.href = "index.html";
-}
-</script>
 
 </head>
 
