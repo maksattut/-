@@ -81,7 +81,7 @@
   </div>
 
   <div class="card">
-    <button class="btn" onclick="location.href='list.html'">📋 Перейти к заявкам</button>
+   <button class="btn" onclick="goList()">📋 Перейти к заявкам</button>
   </div>
 
   <div class="card">
@@ -132,6 +132,12 @@ function setLang(l) {
     document.getElementById("department").placeholder = "Цех";
     document.getElementById("comment").placeholder = "Комментарий";
   }
+}
+</script>
+  <script>
+function goList() {
+  const role = document.getElementById("role").value;
+  location.href = "list.html?role=" + role;
 }
 </script>
 
