@@ -1,4 +1,4 @@
-fetch("ТВОЙ_API_URL?type=list")
+fetch("https://script.google.com/macros/s/AKfycbzioB_TlUiC6kcJYf2CsMhhVMsyar2z0t9tcN1mVZkSp31P7jljWOnrwxRMp1kXIpor0g/exec?type=list")
 .then(res => res.json())
 .then(data => {
   const table = document.getElementById("table");
