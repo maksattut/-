@@ -2,13 +2,25 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Список заявок</title>
+  <title>Заявки</title>
+
+  <style>
+    body { font-family: Arial; background:#f5f7fb; }
+    table { width:100%; background:white; border-collapse: collapse;}
+    th, td { padding:10px; border:1px solid #ddd; }
+    .container { max-width:900px; margin:auto; padding:20px;}
+    a { color:blue; }
+  </style>
 </head>
 <body>
 
+<div class="container">
+
 <h2>Список заявок</h2>
 
-<table border="1" id="table">
+<a href="index.html">← Назад</a><br><br>
+
+<table id="table">
 <tr>
   <th>ID</th>
   <th>Дата</th>
@@ -17,6 +29,8 @@
   <th></th>
 </tr>
 </table>
+
+</div>
 
 <script src="js/list.js"></script>
 
