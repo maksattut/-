@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html>
+  <script>
+const role = localStorage.getItem("role");
+
+// если не залогинен
+if (!role || (role !== "logist" && role !== "director")) {
+  alert("Нет доступа");
+  location.href = "index.html";
+}
+</script>
 <head>
   <meta charset="UTF-8">
   <title>Заявки</title>
