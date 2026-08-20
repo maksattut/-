@@ -81,9 +81,26 @@
   </div>
 
   <div class="card">
-   <button class="btn" onclick="goList()">📋 Перейти к заявкам</button>
-  </div>
 
+  <h3>Вход к заявкам</h3>
+
+  <select id="role">
+    <option value="init">Инициатор</option>
+    <option value="logist">Логист</option>
+    <option value="director">Директор</option>
+  </select>
+
+  <br><br>
+
+  <input type="password" id="password" placeholder="Пароль">
+
+  <br><br>
+
+  <button class="btn" onclick="login()">📋 Перейти к заявкам</button>
+
+  <p id="error" style="color:red;"></p>
+
+</div>
   <div class="card">
 
     <h3 id="createTitle">Создать заявку</h3>
