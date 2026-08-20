@@ -18,7 +18,7 @@
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-fetch("ТВОЙ_API_URL?type=doc&id=" + id)
+fetch("https://script.google.com/macros/s/AKfycbzioB_TlUiC6kcJYf2CsMhhVMsyar2z0t9tcN1mVZkSp31P7jljWOnrwxRMp1kXIpor0g/exec?type=doc&id=" + id)
 .then(res => res.json())
 .then(doc => {
 
@@ -51,7 +51,7 @@ fetch("ТВОЙ_API_URL?type=doc&id=" + id)
 function sign(role) {
   const password = prompt("Введите пароль");
 
-  fetch(`ТВОЙ_API_URL?type=sign&id=${id}&role=${role}&password=${password}`)
+  fetch(`https://script.google.com/macros/s/AKfycbzioB_TlUiC6kcJYf2CsMhhVMsyar2z0t9tcN1mVZkSp31P7jljWOnrwxRMp1kXIpor0g/exec?type=sign&id=${id}&role=${role}&password=${password}`)
   .then(res => res.json())
   .then(res => {
     if(res.ok){
