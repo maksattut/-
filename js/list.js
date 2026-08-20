@@ -15,7 +15,7 @@ function getStatusText(status){
   return status;
 }
 
-fetch("ТВОЙ_API_URL?type=list")
+fetch("https://script.google.com/macros/s/AKfycbyiz8iCbTtnRH5ZILNouP-0qslUH_XLO5T5DoDRcVOchuB2YkJpwx2xzS8TCoT3YWu1CQ/exec?type=list")
 .then(res => res.json())
 .then(data => {
 
