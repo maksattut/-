@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Документ</title>
+</head>
+<body>
+
+<div id="content"></div>
+
+<h3>Подписи</h3>
+<div id="signatures"></div>
+
+<br>
+<button onclick="window.print()">Печать</button>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+fetch("ТВОЙ_API_URL?type=doc&id=" + id)
+.then(res => res.json())
+.then(doc => {
+
+  const items = JSON.parse(doc.items);
+
+  let html = `<h2>${doc.id}</h2>`;
+  html += `<p>Цех: ${doc.department}</p>`;
+  html += `<table border="1">`;
+
+  items.forEach(i => {
+    html += `<tr>
+      <td>${i.name}</td>
+      <td>${i.qty}</td>
+      <td>${i.unit}</td>
+    </tr>`;
+  });
+
+  html += `</table>`;
+  html += `<p>${doc.comment}</p>`;
+
+  document.getElementById("content").innerHTML = html;
+
+  document.getElementById("signatures").innerHTML = `
+    Инициатор: ✔<br>
+    Логист: ${doc.logist ? "✔" : `<button onclick="sign('logist')">Подписать</button>`}<br>
+    Директор: ${doc.director ? "✔" : `<button onclick="sign('director')">Подписать</button>`}
+  `;
+});
+
+function sign(role) {
+  const password = prompt("Введите пароль");
+
+  fetch(`ТВОЙ_API_URL?type=sign&id=${id}&role=${role}&password=${password}`)
+  .then(res => res.json())
+  .then(res => {
+    if(res.ok){
+      location.reload();
+    } else {
+      alert("Неверный пароль");
+    }
+  });
+}
+</script>
+
+</body>
+</html>
