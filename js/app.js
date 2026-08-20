@@ -29,10 +29,13 @@ function submitForm() {
     method: "POST",
     body: JSON.stringify({
       department: document.getElementById("department").value,
-      items: data,
+      items: JSON.stringify(data), // ✅ ВОТ ФИКС
       comment: document.getElementById("comment").value
     })
   })
   .then(res => res.json())
-  .then(res => alert("Создано: " + res.id));
+  .then(res => {
+    alert("Создано: " + res.id);
+    location.reload();
+  });
 }
